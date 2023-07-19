@@ -1,0 +1,24 @@
+<div class="p-3">
+  <h2 mat-dialog-title class="p-0">{{header}}</h2>
+
+  <form [formGroup]="instrumentForm" (ngSubmit)="save()">
+    <mat-form-field class="w-full">
+      <mat-label>Название</mat-label>
+      <input type="email" matInput [formControl]="instrumentName" placeholder="Название инструмента">
+      <mat-error *ngIf="instrumentName.hasError('required')">
+        <strong>Обязательное</strong> поле.
+      </mat-error>
+      <mat-error *ngIf="instrumentName.hasError('duplicate')">
+        Инструмент с таким названием уже есть в системе.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="mt-2">
+      <button mat-raised-button type="button" (click)="close()">Отмена</button>
+      <button mat-raised-button color="primary" class="ml-3" type="submit" [disabled]="instrumentForm.invalid">
+        Сохранить
+      </button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,34 @@
+<mat-card class="mx-2 my-3">
+  <mat-card-header>
+    <div class="flex align-content-center mb-5">
+      <mat-card-title>Возможные инструменты</mat-card-title>
+      <button class="ml-4" (click)="openAddInstrumentDialog()" mat-mini-fab  aria-label="Add new instrument" color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="instrumentsDatasource" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Название </th>
+        <td mat-cell *matCellDef="let instrument">{{instrument.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Действия </th>
+        <td mat-cell *matCellDef="let instrument">
+          <button class="ml-4" (click)="openAddInstrumentDialog(instrument)" mat-icon-button  aria-label="Edit instrument" color="primary">
+            <mat-icon fontIcon="edit"></mat-icon>
+          </button>
+          <button class="ml-4" *ngIf=!instrument.isUsed (click)="openDeleteDialog(instrument)" mat-icon-button  aria-label="Delete instrument" color="primary">
+            <mat-icon fontIcon="delete"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </mat-card-content>
+</mat-card>
+
