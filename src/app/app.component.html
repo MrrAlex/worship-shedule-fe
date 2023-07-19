@@ -6,7 +6,11 @@
 
 </mat-toolbar>
 <mat-sidenav-container class="nav-container" #sidenav>
-  <mat-sidenav mode="side">Start</mat-sidenav>
+  <mat-sidenav mode="side">
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let link of links" [routerLink]="link.route">{{ link.value }}</a>
+    </mat-nav-list>
+  </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

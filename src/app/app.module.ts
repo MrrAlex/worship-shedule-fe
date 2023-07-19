@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InstrumentsListComponent } from './instruments/instruments-list/instruments-list.component';
-import { InstrumentAddModalComponent } from './instruments/instrument-add-modal/instrument-add-modal.component';
+import { InstrumentsListComponent } from './components/instruments/instruments-list/instruments-list.component';
+import { InstrumentAddModalComponent } from './components/instruments/instrument-add-modal/instrument-add-modal.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {RouterModule, Routes} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -19,10 +19,18 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import {MatListModule} from "@angular/material/list";
+import { ServiceTemplateListComponent } from './components/service-templates/service-template-list/service-template-list.component';
+import { AddServiceTemplateModalComponent } from './components/service-templates/add-service-template-modal/add-service-template-modal.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 const routes: Routes = [{
   path: 'instruments',
   component: InstrumentsListComponent
+}, {
+  path: 'templates',
+  component: ServiceTemplateListComponent
 }]
 
 @NgModule({
@@ -31,6 +39,8 @@ const routes: Routes = [{
     InstrumentsListComponent,
     InstrumentAddModalComponent,
     ConfirmDialogComponent,
+    ServiceTemplateListComponent,
+    AddServiceTemplateModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -48,6 +58,9 @@ const routes: Routes = [{
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatListModule,
+    MatSelectModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

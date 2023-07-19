@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Constants } from '../Constants';
 import { Instrument } from '../models/instrument.model';
 import { HttpService } from './http.service';
+import {ServiceTemplate} from "../models/service-template.model";
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,31 @@ export class EndpointsService {
 
   deleteInstrument(id: string) {
     return this.http.delete(Constants.INSTRUMENT_API(id));
+  }
+
+  loadTemplates() {
+    return this.http.get<ServiceTemplate[]>(Constants.SERVICE_TEMPLATES_API);
+  }
+
+  loadTemplate(id: string) {
+    return this.http.get<ServiceTemplate>(Constants.SERVICE_TEMPLATE_API(id));
+  }
+
+  updateTemplate(id: string, template: ServiceTemplate) {
+    return this.http.post<ServiceTemplate, ServiceTemplate>(
+      Constants.SERVICE_TEMPLATE_API(id),
+      template,
+    );
+  }
+
+  addTemplate(template: ServiceTemplate) {
+    return this.http.post<ServiceTemplate, ServiceTemplate>(
+      Constants.SERVICE_TEMPLATE_API(''),
+      template,
+    );
+  }
+
+  deleteTemplate(id: string) {
+    return this.http.delete(Constants.SERVICE_TEMPLATE_API(id));
   }
 }

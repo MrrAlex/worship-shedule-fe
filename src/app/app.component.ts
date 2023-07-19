@@ -14,6 +14,14 @@ export class AppComponent {
 
   isSidebarOpened = false;
 
+  links = [{
+    route: 'instruments',
+    value: 'Инструменты'
+  }, {
+    route: 'templates',
+    value: 'Шаблоны служения'
+  }]
+
   toggleSidebar() {
     this.isSidebarOpened = !this.isSidebarOpened;
     if (this.isSidebarOpened) {

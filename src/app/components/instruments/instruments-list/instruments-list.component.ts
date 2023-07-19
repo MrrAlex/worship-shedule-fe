@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DataSource } from '@angular/cdk/collections';
-import { Instrument } from '../../models/instrument.model';
-import { InstrumentDataSource } from '../../datasources/instrument.datasource';
-import { EndpointsService } from '../../services/endpoints.service';
-import { MatDialog } from '@angular/material/dialog';
-import { InstrumentAddModalComponent } from '../instrument-add-modal/instrument-add-modal.component';
-import { filter, of, switchMap } from 'rxjs';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {Instrument} from '../../../models/instrument.model';
+import {InstrumentDataSource} from '../../../datasources/instrument.datasource';
+import {EndpointsService} from '../../../services/endpoints.service';
+import {MatDialog} from '@angular/material/dialog';
+import {InstrumentAddModalComponent} from '../instrument-add-modal/instrument-add-modal.component';
+import {filter, switchMap} from 'rxjs';
+import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ws-instruments-list',

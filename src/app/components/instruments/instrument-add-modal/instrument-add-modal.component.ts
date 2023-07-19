@@ -1,16 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   UntypedFormBuilder,
-  UntypedFormControl,
   UntypedFormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Instrument } from '../../models/instrument.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Instrument} from '../../../models/instrument.model';
 
 @Component({
   selector: 'ws-instrument-add-modal',

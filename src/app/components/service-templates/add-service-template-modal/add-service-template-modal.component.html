@@ -1,0 +1,61 @@
+<div class="p-3">
+  <h2 mat-dialog-title class="p-0">{{header}}</h2>
+
+  <form [formGroup]="templateForm" (ngSubmit)="save()">
+    <mat-form-field class="w-full">
+      <mat-label>Название</mat-label>
+      <input type="text" matInput [formControl]="templateName" placeholder="Название шаблона">
+      <mat-error *ngIf="templateName.hasError('required')">
+        <strong>Обязательное</strong> поле.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Описание</mat-label>
+      <textarea matInput [formControl]="templateDescription" placeholder="Описание шаблона"></textarea>
+      <mat-error *ngIf="templateDescription.hasError('required')">
+        <strong>Обязательное</strong> поле.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Выберите инструмент</mat-label>
+      <mat-select (selectionChange)="addInstrumentToTemplate($event.value)">
+        <mat-option disabled>Выбрать инструмент</mat-option>
+        <mat-option *ngFor="let instrument of instrumentOptions"
+                    [value]="instrument._id">{{instrument.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngFor="let control of instrumentControls; let i = index">
+      <div class="grid mt-2 mb-2">
+        <div class="col-4 align-items-center flex">
+          <span class="font-medium mat-headline-6">
+            {{instrumentNames[i]}}
+          </span>
+        </div>
+        <div class="col-7">
+          <mat-form-field class="w-full">
+            <input type="number" matInput [formControl]="instrumentMembers(control)"/>
+            <mat-error *ngIf="instrumentMembersHasErrors(control)">
+              Количество человек должно быть 1 или больше.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1">
+          <button mat-icon-button (click)="removeInstrument(i)">
+            <mat-icon fontIcon="delete"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button mat-raised-button type="button" (click)="close()">Отмена</button>
+      <button mat-raised-button color="primary" class="ml-3" type="submit" [disabled]="templateForm.invalid">
+        Сохранить
+      </button>
+    </div>
+  </form>
+
+</div>
