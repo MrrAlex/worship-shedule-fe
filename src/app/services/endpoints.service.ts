@@ -4,6 +4,8 @@ import { Constants } from '../Constants';
 import { Instrument } from '../models/instrument.model';
 import { HttpService } from './http.service';
 import {ServiceTemplate} from "../models/service-template.model";
+import {Service} from "../models/service.model";
+import {Person} from "../models/people.model";
 
 @Injectable({
   providedIn: 'root',
@@ -57,5 +59,45 @@ export class EndpointsService {
 
   deleteTemplate(id: string) {
     return this.http.delete(Constants.SERVICE_TEMPLATE_API(id));
+  }
+
+  loadPeople() {
+    return this.http.get<Person[]>(Constants.PEOPLE_API);
+  }
+
+  loadPerson(id: string) {
+    return this.http.get<Person>(Constants.PERSON_API(id));
+  }
+
+  updatePerson(id: string, person: Person) {
+    return this.http.post<Person, Person>(Constants.PERSON_API(id), person);
+  }
+
+  addPerson(person: Person) {
+    return this.http.post<Person, Person>(Constants.PERSON_API(''), person);
+  }
+
+  deletePerson(id: string) {
+    return this.http.delete(Constants.PERSON_API(id));
+  }
+
+  loadServices() {
+    return this.http.get<Service[]>(Constants.SERVICES_API);
+  }
+
+  loadService(id: string) {
+    return this.http.get<Service>(Constants.SERVICE_API(id));
+  }
+
+  updateService(id: string, service: Service) {
+    return this.http.post<Service, Service>(Constants.SERVICE_API(id), service);
+  }
+
+  addService(service: Service) {
+    return this.http.post<Service, Service>(Constants.SERVICE_API(''), service,);
+  }
+
+  deleteService(id: string) {
+    return this.http.delete(Constants.SERVICE_API(id));
   }
 }

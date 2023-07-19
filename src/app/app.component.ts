@@ -20,6 +20,12 @@ export class AppComponent {
   }, {
     route: 'templates',
     value: 'Шаблоны служения'
+  }, {
+    route: 'services',
+    value: 'Список служений'
+  },  {
+    route: 'people',
+    value: 'Список команды'
   }]
 
   toggleSidebar() {
