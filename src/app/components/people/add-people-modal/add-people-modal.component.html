@@ -1,0 +1,29 @@
+<div class="p-3">
+  <h2 mat-dialog-title class="p-0">{{header}}</h2>
+
+  <form [formGroup]="personForm" (ngSubmit)="save()">
+    <mat-form-field class="w-full">
+      <mat-label>Название</mat-label>
+      <input type="text" matInput [formControl]="personName" placeholder="Название шаблона">
+      <mat-error *ngIf="personName.hasError('required')">
+        <strong>Обязательное</strong> поле.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="w-full">
+      <mat-label>Выберите инструменты</mat-label>
+      <mat-checkbox *ngFor="let instrument of availableInstruments; let i = index" [value]="instrument._id"
+                    [formControl]="instrumentControlByIndex(i)">
+        {{instrument.name}}
+      </mat-checkbox>
+    </div>
+
+    <div class="mt-4">
+      <button mat-raised-button type="button" (click)="close()">Отмена</button>
+      <button mat-raised-button color="primary" class="ml-3" type="submit" [disabled]="personForm.invalid">
+        Сохранить
+      </button>
+    </div>
+  </form>
+
+</div>
