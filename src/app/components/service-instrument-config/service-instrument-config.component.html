@@ -1,0 +1,33 @@
+<div class="grid mt-2 mb-2">
+  <div class="col-4 align-items-center flex">
+    <span class="font-medium mat-headline-6">
+      {{ name }}
+    </span>
+    <button mat-icon-button (click)="removeInstrument()">
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
+  </div>
+  <div class="col-8">
+    <div class="grid" *ngFor="let personControl of people; let i = index">
+      <div class="col-10">
+        <mat-form-field class="w-full">
+          <mat-select [formControl]="personControl" (selectionChange)="personSelected($event.value)">
+            <mat-option disabled>Выбрать</mat-option>
+            <mat-option *ngFor="let person of peopleOptions" [value]="person._id"
+                    [disabled]="person.disabled">{{person.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-2">
+        <button mat-icon-button (click)="removePerson(i)">
+          <mat-icon fontIcon="delete"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="col-2">
+      <button mat-icon-button (click)="addPerson()">
+        <mat-icon fontIcon="add"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

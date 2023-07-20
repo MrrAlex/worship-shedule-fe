@@ -1,1 +1,65 @@
-<p>add-new-service-form works!</p>
+<form [formGroup]="serviceForm" (ngSubmit)="save()">
+  <mat-form-field class="w-full">
+    <mat-label>Название</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="name"
+      placeholder="Название служения"
+    />
+    <mat-error *ngIf="name.hasError('required')">
+      <strong>Обязательное</strong> поле.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Дата</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="date"
+      placeholder="Дата служения"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="date.hasError('required')">
+      <strong>Обязательное</strong> поле.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-full">
+    <mat-label>Ведущий</mat-label>
+    <mat-select [formControl]="leader">
+      <mat-option disabled>Выбрать ведущего</mat-option>
+      <mat-option *ngFor="let leader of leaders" [value]="leader._id">{{
+        leader.name
+        }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="leader.hasError('required')">
+      <strong>Обязательное</strong> поле.
+    </mat-error>
+  </mat-form-field>
+
+  <ws-select-instrument-dropdown
+    [instruments]="instruments"
+    (instrumentAdded)="addInstrumentToService($event)"
+    [optionRemoved$]="instrumentRemoved$.asObservable()"
+  ></ws-select-instrument-dropdown>
+
+
+  <div *ngFor="let control of instrumentControls; let i = index">
+    <ws-service-instrument-config [control]="control" [name]="instrumentNames[i]"
+                                  (instrumentRemoved)="removeInstrument(i)" [instrumentAvailablePeople]="getPeopleForInstrument(control.value)"></ws-service-instrument-config>
+  </div>
+
+  <div class="mt-4">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="serviceForm.invalid"
+    >
+      Сохранить
+    </button>
+  </div>
+</form>

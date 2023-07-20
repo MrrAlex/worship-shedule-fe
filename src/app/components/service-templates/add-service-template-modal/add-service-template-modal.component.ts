@@ -117,10 +117,8 @@ export class AddServiceTemplateModalComponent {
     this.instruments.removeAt(i);
     this.instrumentNames = this.instrumentNames.filter((instr, index) => index !== i);
     const instrument = this.availableInstruments.find(instrument => instrument._id === instrumentValue.instrument);
-    console.log(this.template.instruments, this.availableInstruments, instrumentValue, instrument);
     if (instrument) {
       this.instrumentOptions = [...this.instrumentOptions, instrument];
     }
-    console.log(this.instrumentOptions);
   }
 }

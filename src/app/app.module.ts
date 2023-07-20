@@ -37,6 +37,10 @@ import {ServiceViewPageComponent} from './components/service/service-view-page/s
 import {PeopleListComponent} from './components/people/people-list/people-list.component';
 import {AddPeopleModalComponent} from './components/people/add-people-modal/add-people-modal.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import { SelectInstrumentDropdownComponent } from './components/select-instrument-dropdown/select-instrument-dropdown.component';
+import { ServiceInstrumentConfigComponent } from './components/service-instrument-config/service-instrument-config.component';
 
 const routes: Routes = [{
   path: 'instruments',
@@ -75,6 +79,8 @@ const routes: Routes = [{
     ServiceViewPageComponent,
     PeopleListComponent,
     AddPeopleModalComponent,
+    SelectInstrumentDropdownComponent,
+    ServiceInstrumentConfigComponent,
   ],
   imports: [
     HttpClientModule,
@@ -96,9 +102,12 @@ const routes: Routes = [{
     MatSelectModule,
     MatGridListModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'},
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

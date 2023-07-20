@@ -1,11 +1,12 @@
 <mat-card class="mx-2 my-3">
   <mat-card-header>
     <div class="flex align-content-center mb-5">
-      <mat-card-title>Служения</mat-card-title>
+      <mat-card-title *ngIf="service">Изменить служение</mat-card-title>
+      <mat-card-title *ngIf="!service">Добавить служение</mat-card-title>
     </div>
   </mat-card-header>
   <mat-card-content>
-    <ws-add-new-service-form *ngIf="service" [service]="service"></ws-add-new-service-form>
+    <ws-add-new-service-form *ngIf="leaders" [service]="service" [leaders]="leaders" [instruments]="instruments" [people]="people"></ws-add-new-service-form>
   </mat-card-content>
 </mat-card>
 
