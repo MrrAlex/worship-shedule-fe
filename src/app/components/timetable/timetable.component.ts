@@ -18,7 +18,7 @@ export class TimetableComponent implements OnInit {
 
   ngOnInit() {
     const from = DateTime.now().minus({ day: 30 }).toString();
-    const to = DateTime.now().toString();
+    const to = DateTime.now().plus({ day: 30 }).toString();
     this.endpointsService.loadTimetable(from, to).subscribe((data: any) => {
       this.instruments = data.instruments;
       this.services = data.services;
