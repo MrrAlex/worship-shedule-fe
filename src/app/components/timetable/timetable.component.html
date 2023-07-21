@@ -9,9 +9,9 @@
     <div class="timetable">
       <div class="timetable-header w-full">
         <div class="flex grid h-full  p-0 m-0">
-          <div class="col-1  p-0 m-0"></div>
+          <div class="col-1 p-0 m-0"></div>
           <div class="col-10 grid h-full p-0 m-0">
-            <div class="col-2 p-0 m-0"></div>
+            <div class="col-3 xl:col-2 p-0 m-0"></div>
             <div
               *ngFor="let service of services"
               class="h-full justify-content-center flex flex-column
@@ -32,7 +32,7 @@
             {{ instrument.name }}
           </div>
           <div class="col-10 grid p-0 m-0">
-            <div class="col-2 p-0">
+            <div class="col-3 xl:col-2 p-0">
               <div
                 *ngFor="let person of instrument.people"
                 class="person h-2rem flex align-items-center justify-content-center"

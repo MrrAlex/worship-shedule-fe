@@ -35,7 +35,6 @@ export class InstrumentsListComponent implements OnInit {
 
   openDeleteDialog(instrument: Instrument) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'w-6',
       data: {
         text: 'Вы уверены, что хотите удалить этот инструмент? Это действие нельзя будет отменить.',
       },
@@ -69,7 +68,6 @@ export class InstrumentsListComponent implements OnInit {
           (i) => i.name,
         ),
       },
-      panelClass: 'w-6',
       hasBackdrop: true,
     });
 

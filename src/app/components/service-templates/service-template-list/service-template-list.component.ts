@@ -40,7 +40,6 @@ export class ServiceTemplateListComponent {
 
   openDeleteDialog(template: ServiceTemplate) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'w-6',
       data: {
         text: 'Вы уверены, что хотите удалить шаблон? Это действие отменить нельзя.'
       },
@@ -73,7 +72,6 @@ export class ServiceTemplateListComponent {
         instruments: this.instruments,
         header: isEdit ? 'Изменить шаблон' : 'Добавить новый шаблон',
       },
-      panelClass: 'w-6',
       hasBackdrop: true,
     });
 

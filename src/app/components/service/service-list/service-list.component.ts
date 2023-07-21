@@ -38,7 +38,6 @@ export class ServiceListComponent {
 
   openDeleteDialog(service: Service) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'w-6',
       data: {
         text: 'Вы уверены, что хотите удалить служение? Это действие отменить нельзя.'
       },

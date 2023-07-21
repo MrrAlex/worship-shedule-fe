@@ -44,7 +44,6 @@ export class PeopleListComponent {
 
   openDeleteDialog(person: Person) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'w-6',
       data: {
         text: 'Вы уверены, что хотите удалить этого человека? Это действие отменить нельзя.'
       },
@@ -79,7 +78,6 @@ export class PeopleListComponent {
           ? 'Изменить члена команды'
           : 'Добавить нового члена команды',
       },
-      panelClass: 'w-6',
       hasBackdrop: true,
     });
 
