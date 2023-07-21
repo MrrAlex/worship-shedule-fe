@@ -28,9 +28,9 @@
   </mat-form-field>
 
   <mat-form-field class="w-full">
-    <mat-label>Ведущий</mat-label>
+    <mat-label>Ответственный за служение</mat-label>
     <mat-select [formControl]="leader">
-      <mat-option disabled>Выбрать ведущего</mat-option>
+      <mat-option disabled>Выбрать ответственного</mat-option>
       <mat-option *ngFor="let leader of leaders" [value]="leader._id">{{
         leader.name
         }}</mat-option>

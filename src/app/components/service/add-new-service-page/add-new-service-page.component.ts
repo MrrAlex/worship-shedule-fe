@@ -6,6 +6,7 @@ import { Service } from '../../../models/service.model';
 import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { Constants } from '../../../Constants';
 
 @Component({
   selector: 'ws-add-new-service-page',
@@ -41,8 +42,9 @@ export class AddNewServicePageComponent implements OnInit {
         if (service) {
           this.service = service;
         }
-        const leaderInstrumentId = instruments.find((i) => i.name === 'Ведущий')
-          ?._id as string;
+        const leaderInstrumentId = instruments.find(
+          (i) => i.name === Constants.LEADER_LABEL,
+        )?._id as string;
 
         this.people = instruments.reduce(
           (acc, instrument) => {
@@ -66,7 +68,7 @@ export class AddNewServicePageComponent implements OnInit {
         const instrumentsWithPeoplePresent = Object.keys(this.people);
         this.instruments = instruments.filter(
           (i) =>
-            i.name !== 'Ведущий' &&
+            i.name !== Constants.LEADER_LABEL &&
             instrumentsWithPeoplePresent.includes(i._id),
         );
 

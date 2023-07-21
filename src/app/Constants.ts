@@ -14,4 +14,7 @@ export class Constants {
   public static readonly PERSON_API = (id: string) => `${Constants.PEOPLE_API}/${id}`;
 
   public static readonly TIMETABLE_API = `${Constants.BASE_URL}/timetable`;
+
+
+  public static readonly LEADER_LABEL = 'Ответственный за служение';
 }

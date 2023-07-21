@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EndpointsService } from '../../services/endpoints.service';
 import { DateTime } from 'luxon';
+import {Constants} from "../../Constants";
 
 @Component({
   selector: 'ws-timetable',
@@ -25,7 +26,7 @@ export class TimetableComponent implements OnInit {
       this.participations = data.participations;
 
       const leaderInstrumentId = this.instruments.find(
-        (i: any) => i.name === 'Ведущий',
+        (i: any) => i.name === Constants.LEADER_LABEL,
       ).id;
       if (leaderInstrumentId) {
         const leaderParticipations = this.services.map((s: any) => ({
