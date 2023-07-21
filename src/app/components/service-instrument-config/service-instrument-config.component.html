@@ -3,7 +3,7 @@
     <span class="font-medium mat-headline-6">
       {{ name }}
     </span>
-    <button mat-icon-button (click)="removeInstrument()">
+    <button mat-icon-button type="button" (click)="removeInstrument()">
       <mat-icon fontIcon="delete"></mat-icon>
     </button>
   </div>
@@ -19,13 +19,13 @@
         </mat-form-field>
       </div>
       <div class="col-2">
-        <button mat-icon-button (click)="removePerson(i)">
+        <button type="button" mat-icon-button (click)="removePerson(i)">
           <mat-icon fontIcon="delete"></mat-icon>
         </button>
       </div>
     </div>
     <div class="col-2" *ngIf="peopleForm.controls.length < peopleOptions.length">
-      <button mat-icon-button (click)="addPerson()">
+      <button type="button" mat-icon-button (click)="addPerson()">
         <mat-icon fontIcon="add"></mat-icon>
       </button>
     </div>
