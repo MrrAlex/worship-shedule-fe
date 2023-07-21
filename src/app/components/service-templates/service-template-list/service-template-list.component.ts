@@ -41,6 +41,9 @@ export class ServiceTemplateListComponent {
   openDeleteDialog(template: ServiceTemplate) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       panelClass: 'w-6',
+      data: {
+        text: 'Вы уверены, что хотите удалить шаблон? Это действие отменить нельзя.'
+      },
       hasBackdrop: true,
     });
 
