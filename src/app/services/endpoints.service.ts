@@ -100,4 +100,8 @@ export class EndpointsService {
   deleteService(id: string) {
     return this.http.delete(Constants.SERVICE_API(id));
   }
+
+  loadTimetable(dateFrom: string, dateTo: string) {
+    return this.http.get(Constants.TIMETABLE_API, {dateFrom, dateTo})
+  }
 }

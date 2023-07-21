@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {UntypedFormBuilder} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
@@ -7,10 +7,15 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss']
 })
-export class ConfirmDialogComponent {
+export class ConfirmDialogComponent{
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    this.text = data.text;
+  }
+
+  text!: string;
 
   save() {
     this.dialogRef.close(true);

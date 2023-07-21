@@ -1,0 +1,6 @@
+<div *ngFor="let person of people" [class.yes]="participationConfig[person._id]"
+     class="patricipation flex justify-content-center h-2rem align-items-center">
+  <mat-icon *ngIf="participationConfig[person._id]" fontIcon="check-circle"></mat-icon>
+  <mat-icon *ngIf="!participationConfig[person._id]" fontIcon="cancel"></mat-icon>
+</div>
+

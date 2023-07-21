@@ -12,19 +12,17 @@ export class SelectInstrumentDropdownComponent implements OnInit {
   @Input()
   instruments!: Instrument[];
   @Input()
+  options!: Instrument[];
+  @Input()
   optionRemoved$!: Observable<string>;
 
   @Output()
   instrumentAdded = new EventEmitter();
 
-  options!: Instrument[];
-
   @ViewChild('instrumentSelect')
   instrumentSelect!: MatSelect;
 
   ngOnInit() {
-    this.options = this.instruments;
-
     this.optionRemoved$.subscribe((data) => {
       const removed = this.instruments.find((i) => i._id === data);
       if (removed) {

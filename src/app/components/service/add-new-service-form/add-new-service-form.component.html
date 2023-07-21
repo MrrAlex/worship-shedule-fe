@@ -41,6 +41,7 @@
   </mat-form-field>
 
   <ws-select-instrument-dropdown
+    [options]="instrumentOptions"
     [instruments]="instruments"
     (instrumentAdded)="addInstrumentToService($event)"
     [optionRemoved$]="instrumentRemoved$.asObservable()"

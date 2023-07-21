@@ -49,8 +49,6 @@ export class AddPeopleModalComponent {
         ),
       ),
     });
-
-    this.personForm.valueChanges.subscribe(console.log);
   }
 
   get personName() {

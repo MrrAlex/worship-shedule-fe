@@ -12,10 +12,12 @@
 
     <div class="w-full">
       <mat-label>Выберите инструменты</mat-label>
-      <mat-checkbox *ngFor="let instrument of availableInstruments; let i = index" [value]="instrument._id"
-                    [formControl]="instrumentControlByIndex(i)">
-        {{instrument.name}}
-      </mat-checkbox>
+      <div class="w-full">
+        <mat-checkbox *ngFor="let instrument of availableInstruments; let i = index" [value]="instrument._id"
+                      [formControl]="instrumentControlByIndex(i)" class="mr-4">
+          {{instrument.name}}
+        </mat-checkbox>
+      </div>
     </div>
 
     <div class="mt-4">

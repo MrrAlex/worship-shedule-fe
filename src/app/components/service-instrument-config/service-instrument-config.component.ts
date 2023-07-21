@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+} from '@angular/forms';
 import { Person } from '../../models/people.model';
 
 @Component({
@@ -8,8 +12,7 @@ import { Person } from '../../models/people.model';
   styleUrls: ['./service-instrument-config.component.scss'],
 })
 export class ServiceInstrumentConfigComponent implements OnInit {
-  constructor(private fb: UntypedFormBuilder) {
-  }
+  constructor(private fb: UntypedFormBuilder) {}
 
   @Output()
   instrumentRemoved = new EventEmitter();
@@ -26,7 +29,8 @@ export class ServiceInstrumentConfigComponent implements OnInit {
   peopleOptions!: Person[];
 
   ngOnInit() {
-    this.peopleOptions = this.instrumentAvailablePeople;
+    this.peopleOptions = this.instrumentAvailablePeople.map((p) => ({ ...p }));
+    this.personSelected()
   }
 
   removeInstrument() {
@@ -34,7 +38,7 @@ export class ServiceInstrumentConfigComponent implements OnInit {
   }
 
   get peopleForm() {
-    return this.control.get('people') as UntypedFormArray
+    return this.control.get('people') as UntypedFormArray;
   }
 
   get people() {
@@ -46,13 +50,13 @@ export class ServiceInstrumentConfigComponent implements OnInit {
   }
 
   addPerson() {
-    this.peopleForm.push(this.fb.control(''))
+    this.peopleForm.push(this.fb.control(''));
   }
 
-  personSelected(personId: string) {
-    const found = this.peopleOptions.find(p => p._id === personId);
-    if (found) {
-      found.disabled = true;
-    }
+  personSelected() {
+    const selected: string[] = this.peopleForm.value;
+    this.peopleOptions.forEach((p) => {
+      p.disabled = selected.includes(p._id);
+    });
   }
 }

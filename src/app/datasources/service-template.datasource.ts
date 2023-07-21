@@ -9,6 +9,9 @@ export class ServiceTemplateDatasource implements DataSource<ServiceTemplate> {
 
   private templates$ = new BehaviorSubject<ServiceTemplate[]>([]);
   public templates: ServiceTemplate[] = [];
+
+  private _loading$ = new BehaviorSubject(true);
+  public loading$ = this._loading$.asObservable();
   connect(collectionViewer: CollectionViewer): Observable<ServiceTemplate[]> {
     return this.templates$.asObservable();
   }
@@ -17,11 +20,13 @@ export class ServiceTemplateDatasource implements DataSource<ServiceTemplate> {
   }
 
   public loadTemplates() {
+    this._loading$.next(true);
     this.endpointsService
       .loadTemplates()
       .subscribe((templates) => {
         this.templates$.next(templates)
         this.templates = templates;
+        this._loading$.next(false);
       });
   }
 }

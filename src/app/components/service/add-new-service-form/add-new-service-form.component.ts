@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Service } from '../../../models/service.model';
 import {
   FormControl,
@@ -17,7 +10,6 @@ import {
 } from '@angular/forms';
 import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
-import { MatSelect } from '@angular/material/select';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -50,13 +42,30 @@ export class AddNewServiceFormComponent implements OnInit {
   instrumentRemoved$ = new BehaviorSubject('');
 
   ngOnInit() {
+    let selectedInstruments: UntypedFormGroup[] = [];
     this.instrumentOptions = this.instruments;
+    if (this.service?.instruments) {
+      selectedInstruments = this.service.instruments.map((i, index) => {
+        this.instrumentNames[index] = this.instrumentOptions.find(
+          (instr) => instr._id === i.instrument,
+        )?.name as string;
+        this.instrumentOptions = this.instrumentOptions.filter(
+          (instr) => instr._id !== i.instrument,
+        );
+        return this.fb.group({
+          instrument: i.instrument,
+          people: this.fb.array([i.people]),
+        });
+      });
+    }
 
     this.serviceForm = this.fb.group({
       name: [this.service?.name ?? '', Validators.required],
       date: [this.service?.date ?? '', Validators.required],
-      leader: [this.service?.leader ?? '', Validators.required],
-      instruments: this.fb.array([], { validators: Validators.required }),
+      leader: [this.service?.leader?._id ?? '', Validators.required],
+      instruments: this.fb.array(selectedInstruments, {
+        validators: Validators.required,
+      }),
     });
   }
 
@@ -99,9 +108,11 @@ export class AddNewServiceFormComponent implements OnInit {
     this.instrumentRemoved$.next(instrumentValue.instrument);
   }
 
-  save() {}
+  save() {
+    this.serviceSaved.emit(this.serviceForm.value);
+  }
 
-  getPeopleForInstrument({instrument}: any) {
+  getPeopleForInstrument({ instrument }: any) {
     return this.people[instrument];
   }
 }

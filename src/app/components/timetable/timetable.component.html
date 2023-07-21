@@ -1,0 +1,56 @@
+<ws-loading-indicator [loading]="loading"></ws-loading-indicator>
+<mat-card class="mx-2 my-3">
+  <mat-card-header>
+    <div class="flex align-content-center mb-5">
+      <mat-card-title>График участия</mat-card-title>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="timetable">
+      <div class="timetable-header w-full">
+        <div class="flex grid h-full  p-0 m-0">
+          <div class="col-1  p-0 m-0"></div>
+          <div class="col-10 grid h-full p-0 m-0">
+            <div class="col-2 p-0 m-0"></div>
+            <div
+              *ngFor="let service of services"
+              class="h-full justify-content-center flex flex-column
+                border-left-1 border-right-1 w-8rem text-center overflow-hidden px-2"
+            >
+              <div>{{ service.date | date: "dd-MM" }}</div>
+              <div>{{ service.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timetable-body w-full">
+        <div
+          *ngFor="let instrument of instruments"
+          class="instrument-row flex grid p-0 m-0 border-top-1"
+        >
+          <div class="instrument col-1 flex align-items-center p-0 m-0 justify-content-center">
+            {{ instrument.name }}
+          </div>
+          <div class="col-10 grid p-0 m-0">
+            <div class="col-2 p-0">
+              <div
+                *ngFor="let person of instrument.people"
+                class="person h-2rem flex align-items-center justify-content-center"
+              >
+                {{ person.name }}
+              </div>
+            </div>
+            <div *ngFor="let service of services" class="w-8rem">
+              <ws-timetable-col
+                [instrumentId]="instrument.id"
+                [participations]="participations"
+                [people]="instrument.people"
+                [serviceId]="service._id"
+              ></ws-timetable-col>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

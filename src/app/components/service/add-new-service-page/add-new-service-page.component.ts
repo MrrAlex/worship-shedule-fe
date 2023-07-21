@@ -5,6 +5,7 @@ import { EndpointsService } from '../../../services/endpoints.service';
 import { Service } from '../../../models/service.model';
 import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'ws-add-new-service-page',
@@ -15,6 +16,7 @@ export class AddNewServicePageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private endpointsService: EndpointsService,
+    private snackbarService: SnackbarService,
   ) {}
 
   loading = false;
@@ -27,7 +29,7 @@ export class AddNewServicePageComponent implements OnInit {
     forkJoin([
       this.endpointsService.loadPeople(),
       this.endpointsService.loadInstruments(),
-      this.route.data.pipe(
+      this.route.params.pipe(
         take(1),
         map((data) => data['id']),
         switchMap((id) =>
@@ -47,11 +49,6 @@ export class AddNewServicePageComponent implements OnInit {
             const instrumentId = instrument._id;
             const peopleByInstrument = people.filter((p) =>
               p.instruments.includes(instrument._id),
-            );
-            console.log(
-              instrument,
-              peopleByInstrument,
-              peopleByInstrument.length === 0,
             );
             if (peopleByInstrument.length === 0) {
               return acc;
@@ -75,6 +72,24 @@ export class AddNewServicePageComponent implements OnInit {
 
         this.loading = false;
       },
+    });
+  }
+
+  saveService(saved: Service) {
+    let action$;
+    if (this.service) {
+      action$ = this.endpointsService.updateService(this.service._id, saved);
+    } else {
+      action$ = this.endpointsService.addService(saved);
+    }
+    action$.subscribe({
+      next: () =>
+        this.snackbarService.message(
+          this.service
+            ? 'Служение было успешно изменено'
+            : 'Служение было успешно сохранено',
+        ),
+      error: () => this.snackbarService.error(),
     });
   }
 }

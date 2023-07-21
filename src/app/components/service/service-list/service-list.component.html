@@ -1,3 +1,4 @@
+<ws-loading-indicator [loading]="loading$ | async"></ws-loading-indicator>
 <mat-card class="mx-2 my-3">
   <mat-card-header>
     <div class="flex align-content-center mb-5">
@@ -13,18 +14,18 @@
         <th mat-header-cell *matHeaderCellDef> Название</th>
         <td mat-cell *matCellDef="let service">{{service.name}}</td>
       </ng-container>
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Описание</th>
-        <td mat-cell *matCellDef="let service">{{service.description}}</td>
+      <ng-container matColumnDef="leader">
+        <th mat-header-cell *matHeaderCellDef> Лидер </th>
+        <td mat-cell *matCellDef="let service">{{service.leader.name}}</td>
       </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Дата</th>
-        <td mat-cell *matCellDef="let service">{{service.date}}</td>
+        <td mat-cell *matCellDef="let service">{{service.date | date}}</td>
       </ng-container>
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Действия</th>
         <td mat-cell *matCellDef="let service">
-          <a class="ml-4" [routerLink]="['/', 'services', service.id, 'edit']" mat-icon-button
+          <a class="ml-4" [routerLink]="['/', 'services', service._id, 'edit']" mat-icon-button
              aria-label="Edit template" color="primary">
             <mat-icon fontIcon="edit"></mat-icon>
           </a>

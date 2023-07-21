@@ -5,9 +5,10 @@ import {ServiceTemplateDatasource} from "../../../datasources/service-template.d
 import {Instrument} from "../../../models/instrument.model";
 import {ServiceTemplate} from "../../../models/service-template.model";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
-import {filter, switchMap} from "rxjs";
+import {filter, Observable, switchMap} from "rxjs";
 import {ServiceDatasource} from "../../../datasources/service.datasource";
 import {Service} from "../../../models/service.model";
+import {SnackbarService} from "../../../services/snackbar.service";
 
 @Component({
   selector: 'ws-service-list',
@@ -19,6 +20,7 @@ export class ServiceListComponent {
   constructor(
     private endpointsService: EndpointsService,
     public dialog: MatDialog,
+    private snackBar: SnackbarService,
   ) {
     this.serviceDatasource = new ServiceDatasource(
       this.endpointsService,
@@ -26,9 +28,11 @@ export class ServiceListComponent {
   }
 
   serviceDatasource: ServiceDatasource;
-  displayedColumns = ['name', 'description', 'date', 'actions'];
+  displayedColumns = ['name', 'leader', 'date', 'actions'];
+  loading$!: Observable<boolean>;
 
   ngOnInit() {
+    this.loading$ = this.serviceDatasource.loading$;
     this.serviceDatasource.loadServices();
   }
 
@@ -46,8 +50,12 @@ export class ServiceListComponent {
           this.endpointsService.deleteService(service._id),
         ),
       )
-      .subscribe(() => {
-        this.serviceDatasource.loadServices();
+      .subscribe({
+        next: () => {
+          this.serviceDatasource.loadServices();
+          this.snackBar.message('Служение было успешно удалено')
+        },
+        error: () => this.snackBar.error()
       });
   }
 }

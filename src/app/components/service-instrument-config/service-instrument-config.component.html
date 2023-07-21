@@ -11,10 +11,10 @@
     <div class="grid" *ngFor="let personControl of people; let i = index">
       <div class="col-10">
         <mat-form-field class="w-full">
-          <mat-select [formControl]="personControl" (selectionChange)="personSelected($event.value)">
+          <mat-select [formControl]="personControl" (selectionChange)="personSelected()">
             <mat-option disabled>Выбрать</mat-option>
             <mat-option *ngFor="let person of peopleOptions" [value]="person._id"
-                    [disabled]="person.disabled">{{person.name}}</mat-option>
+                    [disabled]="!!person.disabled">{{person.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -24,7 +24,7 @@
         </button>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-2" *ngIf="peopleForm.controls.length < peopleOptions.length">
       <button mat-icon-button (click)="addPerson()">
         <mat-icon fontIcon="add"></mat-icon>
       </button>

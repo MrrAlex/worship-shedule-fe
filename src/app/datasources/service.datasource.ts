@@ -8,6 +8,9 @@ export class ServiceDatasource implements DataSource<Service> {
 
   private services$ = new BehaviorSubject<Service[]>([]);
   public services: Service[] = [];
+
+  private _loading$ = new BehaviorSubject(true);
+  public loading$ = this._loading$.asObservable();
   connect(collectionViewer: CollectionViewer): Observable<Service[]> {
     return this.services$.asObservable();
   }
@@ -16,9 +19,11 @@ export class ServiceDatasource implements DataSource<Service> {
   }
 
   public loadServices() {
+    this._loading$.next(true);
     this.endpointsService.loadServices().subscribe((services) => {
       this.services$.next(services);
       this.services = services;
+      this._loading$.next(false);
     });
   }
 }

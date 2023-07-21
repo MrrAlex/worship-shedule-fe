@@ -1,0 +1,12 @@
+.timetable-header {
+  background-color: #e2e2e2;
+  height: 50px;
+}
+
+.person:nth-child(2n) {
+  background-color: #ececec
+}
+
+.person:nth-child(2n+1) {
+  background-color: #e2e2e2
+}

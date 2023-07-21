@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { EndpointsService } from '../../../services/endpoints.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-import { filter, firstValueFrom, switchMap } from 'rxjs';
+import { filter, firstValueFrom, Observable, switchMap } from 'rxjs';
 import { PeopleDatasource } from '../../../datasources/people.datasource';
 import { Person } from '../../../models/people.model';
 import { AddPeopleModalComponent } from '../add-people-modal/add-people-modal.component';
 import { Instrument } from '../../../models/instrument.model';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'ws-people-list',
@@ -17,6 +18,7 @@ export class PeopleListComponent {
   constructor(
     private endpointsService: EndpointsService,
     public dialog: MatDialog,
+    private snackBar: SnackbarService,
   ) {
     this.peopleDatasource = new PeopleDatasource(this.endpointsService);
   }
@@ -24,8 +26,10 @@ export class PeopleListComponent {
   peopleDatasource: PeopleDatasource;
   displayedColumns = ['name', 'instruments', 'actions'];
   instruments!: Instrument[];
+  loading$!: Observable<boolean>;
 
   ngOnInit() {
+    this.loading$ = this.peopleDatasource.loading$;
     this.peopleDatasource.loadPeople();
     this.endpointsService.loadInstruments().subscribe((data) => {
       this.instruments = data;
@@ -33,7 +37,9 @@ export class PeopleListComponent {
   }
 
   parseInstrumentsToNames(ids: string[]) {
-    return ids.map((id) => this.instruments.find((i) => i._id === id)?.name).join(", ");
+    return ids
+      .map((id) => this.instruments.find((i) => i._id === id)?.name)
+      .join(', ');
   }
 
   openDeleteDialog(person: Person) {
@@ -48,8 +54,12 @@ export class PeopleListComponent {
         filter((data) => data),
         switchMap(() => this.endpointsService.deletePerson(person._id)),
       )
-      .subscribe(() => {
-        this.peopleDatasource.loadPeople();
+      .subscribe({
+        next: () => {
+          this.peopleDatasource.loadPeople();
+          this.snackBar.message('Член команды был успешно удален');
+        },
+        error: () => this.snackBar.error(),
       });
   }
 
@@ -80,8 +90,16 @@ export class PeopleListComponent {
             : this.endpointsService.addPerson(data);
         }),
       )
-      .subscribe(() => {
-        this.peopleDatasource.loadPeople();
+      .subscribe({
+        next: () => {
+          this.peopleDatasource.loadPeople();
+          this.snackBar.message(
+            isEdit
+              ? 'Член команды был успешно изменен'
+              : 'Член команды был успешно сохранен',
+          );
+        },
+        error: () => this.snackBar.error(),
       });
   }
 }

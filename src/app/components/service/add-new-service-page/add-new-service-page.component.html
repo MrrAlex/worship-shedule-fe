@@ -1,3 +1,4 @@
+<ws-loading-indicator [loading]="loading$ | async"></ws-loading-indicator>
 <mat-card class="mx-2 my-3">
   <mat-card-header>
     <div class="flex align-content-center mb-5">
@@ -6,7 +7,8 @@
     </div>
   </mat-card-header>
   <mat-card-content>
-    <ws-add-new-service-form *ngIf="leaders" [service]="service" [leaders]="leaders" [instruments]="instruments" [people]="people"></ws-add-new-service-form>
+    <ws-add-new-service-form *ngIf="leaders" [service]="service" [leaders]="leaders" [instruments]="instruments"
+                             [people]="people" (serviceSaved)="saveService($event)"></ws-add-new-service-form>
   </mat-card-content>
 </mat-card>
 

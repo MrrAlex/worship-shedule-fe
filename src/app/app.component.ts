@@ -1,10 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {MatSidenavContainer} from "@angular/material/sidenav";
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenavContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'fe';
@@ -14,27 +14,35 @@ export class AppComponent {
 
   isSidebarOpened = false;
 
-  links = [{
-    route: 'instruments',
-    value: 'Инструменты'
-  }, {
-    route: 'templates',
-    value: 'Шаблоны служения'
-  }, {
-    route: 'services',
-    value: 'Список служений'
-  },  {
-    route: 'people',
-    value: 'Список команды'
-  }]
+  links = [
+    {
+      route: 'timetable',
+      value: 'График участия',
+    },
+    {
+      route: 'services',
+      value: 'Список служений',
+    },
+    {
+      route: 'people',
+      value: 'Список команды',
+    },
+    {
+      route: 'templates',
+      value: 'Шаблоны служения',
+    },
+    {
+      route: 'instruments',
+      value: 'Инструменты',
+    },
+  ];
 
   toggleSidebar() {
     this.isSidebarOpened = !this.isSidebarOpened;
     if (this.isSidebarOpened) {
-      this.sidenav.open()
+      this.sidenav.open();
     } else {
-      this.sidenav.close()
+      this.sidenav.close();
     }
-
   }
 }
