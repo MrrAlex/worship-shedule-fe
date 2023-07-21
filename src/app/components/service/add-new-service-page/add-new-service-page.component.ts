@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, forkJoin, iif, map, of, switchMap, take, tap } from 'rxjs';
+import { forkJoin, map, of, switchMap, take } from 'rxjs';
 import { EndpointsService } from '../../../services/endpoints.service';
 import { Service } from '../../../models/service.model';
 import { Person } from '../../../models/people.model';
