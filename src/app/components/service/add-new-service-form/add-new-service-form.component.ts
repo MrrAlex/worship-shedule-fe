@@ -54,7 +54,7 @@ export class AddNewServiceFormComponent implements OnInit {
         );
         return this.fb.group({
           instrument: i.instrument,
-          people: this.fb.array([i.people]),
+          people: this.fb.array(i.people),
         });
       });
     }
@@ -63,9 +63,7 @@ export class AddNewServiceFormComponent implements OnInit {
       name: [this.service?.name ?? '', Validators.required],
       date: [this.service?.date ?? '', Validators.required],
       leader: [this.service?.leader?._id ?? '', Validators.required],
-      instruments: this.fb.array(selectedInstruments, {
-        validators: Validators.required,
-      }),
+      instruments: this.fb.array(selectedInstruments),
     });
   }
 

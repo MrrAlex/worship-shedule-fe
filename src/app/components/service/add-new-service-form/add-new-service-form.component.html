@@ -1,4 +1,4 @@
-<form [formGroup]="serviceForm" (ngSubmit)="save()">
+<form [formGroup]="serviceForm" (ngSubmit)="save()" *ngIf="serviceForm">
   <mat-form-field class="w-full">
     <mat-label>Название</mat-label>
     <input
