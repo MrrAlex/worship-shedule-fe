@@ -11,6 +11,7 @@ import {
 import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
 import { BehaviorSubject } from 'rxjs';
+import { ServiceTemplate } from '../../../models/service-template.model';
 
 @Component({
   selector: 'ws-add-new-service-form',
@@ -28,6 +29,9 @@ export class AddNewServiceFormComponent implements OnInit {
 
   @Input()
   instruments!: Instrument[];
+
+  @Input()
+  template!: ServiceTemplate;
 
   @Input()
   people!: Record<string, Person[]>;
@@ -55,6 +59,14 @@ export class AddNewServiceFormComponent implements OnInit {
         return this.fb.group({
           instrument: i.instrument,
           people: this.fb.array(i.people),
+        });
+      });
+    } else if (this.template) {
+      selectedInstruments = this.template.instruments.map((i, index) => {
+        this.instrumentNames[index] = i.instrument;
+        return this.fb.group({
+          instrument: i.id,
+          people: this.fb.array(new Array(i.members).fill('')),
         });
       });
     }

@@ -17,7 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MatListModule } from '@angular/material/list';
 import { ServiceTemplateListComponent } from './components/service-templates/service-template-list/service-template-list.component';
@@ -47,6 +47,7 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {SnackbarService} from "./services/snackbar.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { AddServiceChooseTemplateModalComponent } from './components/service/add-service-choose-template/add-service-choose-template-modal.component';
 
 const routes: Routes = [
   {
@@ -104,6 +105,7 @@ registerLocaleData(localeRu, 'ru');
     TimetableComponent,
     TimetableRowComponent,
     LoadingIndicatorComponent,
+    AddServiceChooseTemplateModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -128,13 +130,14 @@ registerLocaleData(localeRu, 'ru');
     MatDatepickerModule,
     MatMomentDateModule,
     MatProgressSpinnerModule,
+    FormsModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-ru' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     SnackbarService,
-    MatSnackBar
+    MatSnackBar,
   ],
   bootstrap: [AppComponent],
 })

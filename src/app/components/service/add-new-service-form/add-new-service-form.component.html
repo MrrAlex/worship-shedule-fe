@@ -1,11 +1,11 @@
-<form [formGroup]="serviceForm" (ngSubmit)="save()" *ngIf="serviceForm">
+<form (ngSubmit)="save()" *ngIf="serviceForm" [formGroup]="serviceForm">
   <mat-form-field class="w-full">
     <mat-label>Название</mat-label>
     <input
-      type="text"
-      matInput
       [formControl]="name"
+      matInput
       placeholder="Название служения"
+      type="text"
     />
     <mat-error *ngIf="name.hasError('required')">
       <strong>Обязательное</strong> поле.
@@ -15,12 +15,12 @@
   <mat-form-field>
     <mat-label>Дата</mat-label>
     <input
-      matInput
-      [matDatepicker]="picker"
       [formControl]="date"
+      [matDatepicker]="picker"
+      matInput
       placeholder="Дата служения"
     />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="date.hasError('required')">
       <strong>Обязательное</strong> поле.
@@ -41,24 +41,25 @@
   </mat-form-field>
 
   <ws-select-instrument-dropdown
-    [options]="instrumentOptions"
-    [instruments]="instruments"
     (instrumentAdded)="addInstrumentToService($event)"
+    [instruments]="instruments"
     [optionRemoved$]="instrumentRemoved$.asObservable()"
+    [options]="instrumentOptions"
   ></ws-select-instrument-dropdown>
 
 
   <div *ngFor="let control of instrumentControls; let i = index">
-    <ws-service-instrument-config [control]="control" [name]="instrumentNames[i]"
-                                  (instrumentRemoved)="removeInstrument(i)" [instrumentAvailablePeople]="getPeopleForInstrument(control.value)"></ws-service-instrument-config>
+    <ws-service-instrument-config (instrumentRemoved)="removeInstrument(i)" [control]="control"
+                                  [instrumentAvailablePeople]="getPeopleForInstrument(control.value)"
+                                  [name]="instrumentNames[i]"></ws-service-instrument-config>
   </div>
 
   <div class="mt-4">
     <button
-      mat-raised-button
-      color="primary"
-      type="submit"
       [disabled]="serviceForm.invalid"
+      color="primary"
+      mat-raised-button
+      type="submit"
     >
       Сохранить
     </button>

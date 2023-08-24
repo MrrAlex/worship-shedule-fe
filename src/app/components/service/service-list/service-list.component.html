@@ -3,41 +3,41 @@
   <mat-card-header>
     <div class="flex align-content-center mb-5">
       <mat-card-title>Служения</mat-card-title>
-      <a class="ml-4" routerLink="/services/add" mat-mini-fab aria-label="Add new service" color="primary">
+      <a (click)="openTemplateDialog()" aria-label="Add new service" class="ml-4" color="primary" mat-mini-fab>
         <mat-icon>add</mat-icon>
       </a>
     </div>
   </mat-card-header>
   <mat-card-content>
-    <table mat-table [dataSource]="serviceDatasource" class="mat-elevation-z8">
+    <table [dataSource]="serviceDatasource" class="mat-elevation-z8" mat-table>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Название</th>
-        <td mat-cell *matCellDef="let service">{{service.name}}</td>
+        <th *matHeaderCellDef mat-header-cell> Название</th>
+        <td *matCellDef="let service" mat-cell>{{service.name}}</td>
       </ng-container>
       <ng-container matColumnDef="leader">
-        <th mat-header-cell *matHeaderCellDef> Лидер </th>
-        <td mat-cell *matCellDef="let service">{{service.leader.name}}</td>
+        <th *matHeaderCellDef mat-header-cell> Лидер</th>
+        <td *matCellDef="let service" mat-cell>{{service.leader.name}}</td>
       </ng-container>
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Дата</th>
-        <td mat-cell *matCellDef="let service">{{service.date | date}}</td>
+        <th *matHeaderCellDef mat-header-cell> Дата</th>
+        <td *matCellDef="let service" mat-cell>{{service.date | date}}</td>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Действия</th>
-        <td mat-cell *matCellDef="let service">
-          <a class="ml-4" [routerLink]="['/', 'services', service._id, 'edit']" mat-icon-button
-             aria-label="Edit template" color="primary">
+        <th *matHeaderCellDef mat-header-cell> Действия</th>
+        <td *matCellDef="let service" mat-cell>
+          <a [routerLink]="['/', 'services', service._id, 'edit']" aria-label="Edit template" class="ml-4"
+             color="primary" mat-icon-button>
             <mat-icon fontIcon="edit"></mat-icon>
           </a>
-          <button class="ml-4" (click)="openDeleteDialog(service)" mat-icon-button aria-label="Delete service"
-                  color="primary">
+          <button (click)="openDeleteDialog(service)" aria-label="Delete service" class="ml-4" color="primary"
+                  mat-icon-button>
             <mat-icon fontIcon="delete"></mat-icon>
           </button>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
     </table>
 
   </mat-card-content>

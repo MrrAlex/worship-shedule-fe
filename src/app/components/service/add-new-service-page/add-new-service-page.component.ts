@@ -7,6 +7,7 @@ import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { Constants } from '../../../Constants';
+import {ServiceTemplate} from "../../../models/service-template.model";
 
 @Component({
   selector: 'ws-add-new-service-page',
@@ -22,6 +23,7 @@ export class AddNewServicePageComponent implements OnInit {
 
   loading = false;
   service!: Service;
+  template!: ServiceTemplate;
   leaders!: Person[];
   people!: Record<string, Person[]>;
   instruments!: Instrument[];
@@ -37,10 +39,20 @@ export class AddNewServicePageComponent implements OnInit {
           id ? this.endpointsService.loadService(id) : of(null),
         ),
       ),
+      this.route.queryParams.pipe(
+        take(1),
+        map((data) => data['templateId']),
+        switchMap((id) =>
+          id ? this.endpointsService.loadTemplate(id) : of(null),
+        ),
+      ),
     ]).subscribe({
-      next: ([people, instruments, service]) => {
+      next: ([people, instruments, service, template]) => {
         if (service) {
           this.service = service;
+        }
+        if (template) {
+          this.template = template;
         }
         const leaderInstrumentId = instruments.find(
           (i) => i.name === Constants.LEADER_LABEL,

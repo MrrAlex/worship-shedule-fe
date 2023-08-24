@@ -1,0 +1,24 @@
+<div class="p-3">
+  <h2 class="p-0" mat-dialog-title>{{header}}</h2>
+
+  <mat-form-field class="w-full">
+    <mat-label>Выберите шаблон</mat-label>
+    <mat-select [(ngModel)]="selectedTemplate">
+      <mat-option disabled>Выбрать шаблон</mat-option>
+      <mat-option *ngFor="let template of templates"
+                  [value]="template._id">{{template.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="mt-4">
+    <button (click)="close()" mat-raised-button type="button">Отмена</button>
+    <button (click)="navigateToAddServicePage()" [disabled]="!selectedTemplate" class="ml-3" color="primary" mat-raised-button
+            type="submit">
+      Продолжить
+    </button>
+    <button routerLink="/services/add" class="ml-3" color="primary" mat-raised-button
+            type="submit">
+      Продолжить без шаблона
+    </button>
+  </div>
+</div>
