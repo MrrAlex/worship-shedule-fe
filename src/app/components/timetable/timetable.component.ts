@@ -18,7 +18,7 @@ export class TimetableComponent implements OnInit {
   services: any;
   participations: any;
 
-  peopleError: Person[] = [];
+  peopleError = new Set<string>();
 
   loading = true;
 
@@ -50,7 +50,7 @@ export class TimetableComponent implements OnInit {
           const error = peopleErrors.includes(p._id);
           if (error) {
             p.isError = peopleErrors.includes(p._id);
-            this.peopleError.push(p);
+            this.peopleError.add(p.name);
           }
         });
       });

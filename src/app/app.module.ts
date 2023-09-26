@@ -79,7 +79,7 @@ const routes: Routes = [
     component: PeopleListComponent,
   },
   {
-    path: 'timetable',
+    path: '',
     component: TimetableComponent,
   },
 ];
