@@ -16,7 +16,7 @@ export class AppComponent {
 
   links = [
     {
-      route: 'timetable',
+      route: '',
       value: 'График участия',
     },
     {
