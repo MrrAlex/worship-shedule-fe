@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EndpointsService } from '../../services/endpoints.service';
 import { DateTime } from 'luxon';
-import {Constants} from "../../Constants";
+import { Constants } from '../../Constants';
+import { forkJoin } from 'rxjs';
+import { Instrument } from '../../models/instrument.model';
+import { Person } from '../../models/people.model';
 
 @Component({
   selector: 'ws-timetable',
@@ -11,21 +14,26 @@ import {Constants} from "../../Constants";
 export class TimetableComponent implements OnInit {
   constructor(private endpointsService: EndpointsService) {}
 
-  instruments: any;
+  instruments!: Instrument[];
   services: any;
   participations: any;
+
+  peopleError: Person[] = [];
 
   loading = true;
 
   ngOnInit() {
     const from = DateTime.now().minus({ day: 30 }).toString();
     const to = DateTime.now().plus({ day: 30 }).toString();
-    this.endpointsService.loadTimetable(from, to).subscribe((data: any) => {
-      this.instruments = data.instruments;
-      this.services = data.services;
-      this.participations = data.participations;
+    forkJoin([
+      this.endpointsService.loadTimetable(from, to),
+      this.endpointsService.getPeopleWithTooManyDays(),
+    ]).subscribe(([ttData, peopleErrors]: any[]) => {
+      this.instruments = ttData.instruments;
+      this.services = ttData.services;
+      this.participations = ttData.participations;
 
-      const leaderInstrumentId = this.instruments.find(
+      const leaderInstrumentId = ttData.instruments.find(
         (i: any) => i.name === Constants.LEADER_LABEL,
       ).id;
       if (leaderInstrumentId) {
@@ -36,6 +44,16 @@ export class TimetableComponent implements OnInit {
         }));
         this.participations.push(...leaderParticipations);
       }
+
+      this.instruments.forEach((i) => {
+        i.people.forEach((p) => {
+          const error = peopleErrors.includes(p._id);
+          if (error) {
+            p.isError = peopleErrors.includes(p._id);
+            this.peopleError.push(p);
+          }
+        });
+      });
 
       this.loading = false;
     });

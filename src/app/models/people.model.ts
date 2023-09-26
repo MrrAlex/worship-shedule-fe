@@ -3,4 +3,5 @@ export interface Person {
   name: string;
   instruments: string[];
   disabled?: boolean;
+  isError?: boolean;
 }

@@ -14,7 +14,7 @@
           <mat-select [formControl]="personControl" (selectionChange)="personSelected()">
             <mat-option disabled>Выбрать</mat-option>
             <mat-option *ngFor="let person of peopleOptions" [value]="person._id"
-                    [disabled]="!!person.disabled">{{person.name}}</mat-option>
+                        [class.error]="person.isError" [disabled]="!!person.disabled">{{person.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

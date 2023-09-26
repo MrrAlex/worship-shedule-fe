@@ -7,7 +7,7 @@ import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { Constants } from '../../../Constants';
-import {ServiceTemplate} from "../../../models/service-template.model";
+import { ServiceTemplate } from '../../../models/service-template.model';
 
 @Component({
   selector: 'ws-add-new-service-page',
@@ -31,6 +31,7 @@ export class AddNewServicePageComponent implements OnInit {
   ngOnInit() {
     forkJoin([
       this.endpointsService.loadPeople(),
+      this.endpointsService.getPeopleWithTooManyDays(),
       this.endpointsService.loadInstruments(),
       this.route.params.pipe(
         take(1),
@@ -47,7 +48,7 @@ export class AddNewServicePageComponent implements OnInit {
         ),
       ),
     ]).subscribe({
-      next: ([people, instruments, service, template]) => {
+      next: ([people, peopleErrors, instruments, service, template]) => {
         if (service) {
           this.service = service;
         }
@@ -67,6 +68,9 @@ export class AddNewServicePageComponent implements OnInit {
             if (peopleByInstrument.length === 0) {
               return acc;
             }
+            peopleByInstrument.forEach(
+              (p) => (p.isError = peopleErrors.includes(p._id)),
+            );
             if (instrumentId === leaderInstrumentId) {
               this.leaders = peopleByInstrument;
             } else {

@@ -104,4 +104,8 @@ export class EndpointsService {
   loadTimetable(dateFrom: string, dateTo: string) {
     return this.http.get(Constants.TIMETABLE_API, {dateFrom, dateTo})
   }
+
+  getPeopleWithTooManyDays() {
+    return this.http.get<string[]>(Constants.PERSON_SERVED_MANY)
+  }
 }
