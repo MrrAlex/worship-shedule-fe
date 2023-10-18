@@ -40,6 +40,11 @@
     </mat-error>
   </mat-form-field>
 
+  <div class="w-full mb-2">
+    <mat-label>Готово к отправке в группу</mat-label>
+    <mat-checkbox [formControl]="isForSend"/>
+  </div>
+
   <ws-select-instrument-dropdown
     (instrumentAdded)="addInstrumentToService($event)"
     [instruments]="instruments"

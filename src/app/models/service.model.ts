@@ -5,6 +5,7 @@ export interface Service {
   name: string;
   leader: Person;
   date: Date;
+  isForSend: boolean;
   instruments: ServiceInstrumentConfig[];
 }
 

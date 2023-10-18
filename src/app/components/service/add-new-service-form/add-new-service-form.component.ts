@@ -10,8 +10,10 @@ import {
 } from '@angular/forms';
 import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 import { ServiceTemplate } from '../../../models/service-template.model';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'ws-add-new-service-form',
@@ -19,7 +21,10 @@ import { ServiceTemplate } from '../../../models/service-template.model';
   styleUrls: ['./add-new-service-form.component.scss'],
 })
 export class AddNewServiceFormComponent implements OnInit {
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    public dialog: MatDialog,
+  ) {}
 
   @Input()
   service!: Service;
@@ -74,6 +79,7 @@ export class AddNewServiceFormComponent implements OnInit {
     this.serviceForm = this.fb.group({
       name: [this.service?.name ?? '', Validators.required],
       date: [this.service?.date ?? '', Validators.required],
+      isForSend: [this.service?.isForSend ?? false],
       leader: [this.service?.leader?._id ?? '', Validators.required],
       instruments: this.fb.array(selectedInstruments),
     });
@@ -89,6 +95,10 @@ export class AddNewServiceFormComponent implements OnInit {
 
   get leader() {
     return this.serviceForm.get('leader') as FormControl<string>;
+  }
+
+  get isForSend() {
+    return this.serviceForm.get('isForSend') as FormControl<string>;
   }
 
   get instrumentConfig() {
@@ -119,7 +129,26 @@ export class AddNewServiceFormComponent implements OnInit {
   }
 
   save() {
-    this.serviceSaved.emit(this.serviceForm.value);
+    const value = this.serviceForm.value;
+    if (value.instruments.length > 0 && !value.isForSend) {
+      const ref = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          text: 'В служение добавлены участники, но оно не отмечено как готовое к отправке. Вы уверены, что хотите продолжить?',
+        },
+        hasBackdrop: true,
+      });
+
+      ref
+        .afterClosed()
+        .pipe(filter((data) => data))
+        .subscribe({
+          next: () => {
+            this.serviceSaved.emit(value);
+          },
+        });
+    } else {
+      this.serviceSaved.emit(value);
+    }
   }
 
   getPeopleForInstrument({ instrument }: any) {
