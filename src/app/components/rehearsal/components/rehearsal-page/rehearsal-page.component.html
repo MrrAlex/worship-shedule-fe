@@ -17,7 +17,7 @@
       <ng-container matColumnDef="place">
         <th *matHeaderCellDef mat-header-cell> Место проведения</th>
         <td *matCellDef="let rehearsal" mat-cell><span
-          *ngIf="rehearsal.place">{{rehearsal.place.name}} {{rehearsal.place.address}}</span></td>
+          *ngIf="rehearsal.place">{{rehearsal.place.name}}; {{rehearsal.place.address}}</span></td>
       </ng-container>
       <ng-container matColumnDef="actions">
         <th *matHeaderCellDef mat-header-cell> Действия</th>

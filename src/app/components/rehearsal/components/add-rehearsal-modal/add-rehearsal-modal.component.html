@@ -5,6 +5,9 @@
     <mat-form-field class="w-full">
       <mat-label>Место</mat-label>
       <mat-select [formControl]="place">
+        <mat-select-trigger>
+          <span *ngIf="selectedPlace">{{selectedPlace.name}}; {{selectedPlace.address}}</span>
+        </mat-select-trigger>
         <mat-option disabled>Выбрать место</mat-option>
         <mat-option *ngFor="let place of places"
                     [value]="place._id">

@@ -23,6 +23,7 @@ export class AddRehearsalModalComponent implements OnInit {
   rehearsalForm!: UntypedFormGroup;
   header!: string;
   places!: RehearsalPlace[];
+  selectedPlace?: RehearsalPlace;
   rehearsal?: Rehearsal;
 
   ngOnInit() {
@@ -35,6 +36,14 @@ export class AddRehearsalModalComponent implements OnInit {
         this.rehearsal?.place?._id ?? '',
         Validators.required,
       ),
+    });
+
+    this.place.valueChanges.subscribe((v) => {
+      if (v) {
+        this.selectedPlace = this.places.find((p) => p._id === v);
+      } else {
+        this.selectedPlace = undefined;
+      }
     });
   }
 
