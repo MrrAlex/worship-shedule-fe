@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { EndpointsService } from '../../../services/endpoints.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { filter, firstValueFrom, Observable, switchMap } from 'rxjs';
 import { PeopleDatasource } from '../../../datasources/people.datasource';
 import { Person } from '../../../models/people.model';

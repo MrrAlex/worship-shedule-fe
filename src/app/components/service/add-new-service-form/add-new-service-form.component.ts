@@ -12,8 +12,8 @@ import { Person } from '../../../models/people.model';
 import { Instrument } from '../../../models/instrument.model';
 import { BehaviorSubject, filter } from 'rxjs';
 import { ServiceTemplate } from '../../../models/service-template.model';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'ws-add-new-service-form',

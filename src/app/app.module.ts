@@ -88,6 +88,7 @@ const routes: Routes = [
   {
     path: '',
     component: TimetableComponent,
+    pathMatch: 'full'
   },
 ];
 

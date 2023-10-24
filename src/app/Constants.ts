@@ -23,8 +23,8 @@ export class Constants {
 
   public static readonly REHEARSAL_API = `${Constants.BASE_URL}/rehearsal`;
   public static readonly REHEARSAL_BY_ID_API = (id: string) =>
-    `${Constants.BASE_URL}/rehearsal/${id}`;
-  public static readonly REHEARSAL_PLACE_API = `${Constants.BASE_URL}/rehearsa/placesl`;
+    `${Constants.REHEARSAL_API}/${id}`;
+  public static readonly REHEARSAL_PLACE_API = `${Constants.REHEARSAL_API}/places`;
 
   public static readonly LEADER_LABEL = 'Ответственный за служение';
 }

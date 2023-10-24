@@ -24,6 +24,10 @@ export class AppComponent {
       value: 'Список служений',
     },
     {
+      route: 'rehearsals',
+      value: 'Репетиции',
+    },
+    {
       route: 'people',
       value: 'Список команды',
     },

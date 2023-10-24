@@ -131,4 +131,8 @@ export class EndpointsService {
       data,
     );
   }
+
+  deleteRehearsal(id: string) {
+    return this.http.delete(Constants.REHEARSAL_BY_ID_API(id));
+  }
 }

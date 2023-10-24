@@ -5,7 +5,7 @@ import { EndpointsService } from '../../../services/endpoints.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InstrumentAddModalComponent } from '../instrument-add-modal/instrument-add-modal.component';
 import { filter, Observable, switchMap } from 'rxjs';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({

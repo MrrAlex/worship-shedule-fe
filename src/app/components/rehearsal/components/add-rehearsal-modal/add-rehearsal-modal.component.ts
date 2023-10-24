@@ -39,7 +39,7 @@ export class AddRehearsalModalComponent implements OnInit {
   }
 
   get place(): UntypedFormControl {
-    return this.rehearsalForm.get('place') as UntypedFormControl;
+    return this.rehearsalForm.get('placeId') as UntypedFormControl;
   }
 
   get date(): UntypedFormControl {

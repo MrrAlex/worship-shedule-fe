@@ -2,19 +2,24 @@
   <h2 class="p-0" mat-dialog-title>{{header}}</h2>
 
   <form (ngSubmit)="submit()" *ngIf="rehearsalForm" [formGroup]="rehearsalForm">
-    <mat-form-field>
+    <mat-form-field class="w-full">
       <mat-label>Место</mat-label>
       <mat-select [formControl]="place">
-        <mat-option disabled>Выбрать инструмент</mat-option>
+        <mat-option disabled>Выбрать место</mat-option>
         <mat-option *ngFor="let place of places"
-                    [value]="place._id">{{place.name}} -- {{place.address}}</mat-option>
+                    [value]="place._id">
+          <div class="py-2">
+            <p class="m-0">{{place.name}}</p>
+            <p class="m-0 text-xs text-color-secondary">{{place.address}}</p>
+          </div>
+        </mat-option>
       </mat-select>
       <mat-error *ngIf="place.hasError('required')">
         <strong>Обязательное</strong> поле.
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="w-full my-2">
       <mat-label>Дата</mat-label>
       <input
         [formControl]="date"

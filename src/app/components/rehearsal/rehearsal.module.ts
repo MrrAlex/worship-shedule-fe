@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RehearsalRoutingModule } from './rehearsal-routing.module';
 import { RehearsalPageComponent } from './components/rehearsal-page/rehearsal-page.component';
 import { AddRehearsalModalComponent } from './components/add-rehearsal-modal/add-rehearsal-modal.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,12 +15,19 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
+import {RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [
+  {
+    path: 'rehearsals',
+    component: RehearsalPageComponent,
+  },
+];
 
 @NgModule({
   declarations: [RehearsalPageComponent, AddRehearsalModalComponent],
   imports: [
     CommonModule,
-    RehearsalRoutingModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -34,6 +40,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDatepickerModule,
     MatInputModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
 })
 export class RehearsalModule {}

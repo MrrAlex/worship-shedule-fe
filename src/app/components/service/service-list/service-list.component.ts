@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { EndpointsService } from '../../../services/endpoints.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ServiceTemplate } from '../../../models/service-template.model';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { filter, Observable, switchMap } from 'rxjs';
 import { ServiceDatasource } from '../../../datasources/service.datasource';
 import { Service } from '../../../models/service.model';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { AddServiceChooseTemplateModalComponent } from '../add-service-choose-template/add-service-choose-template-modal.component';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ws-service-list',
