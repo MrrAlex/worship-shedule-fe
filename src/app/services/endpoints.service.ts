@@ -3,9 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Constants } from '../Constants';
 import { Instrument } from '../models/instrument.model';
 import { HttpService } from './http.service';
-import {ServiceTemplate} from "../models/service-template.model";
-import {Service} from "../models/service.model";
-import {Person} from "../models/people.model";
+import { ServiceTemplate } from '../models/service-template.model';
+import { Service } from '../models/service.model';
+import { Person } from '../models/people.model';
+import {
+  Rehearsal,
+  RehearsalPlace,
+} from '../components/rehearsal/model/rehearsal.model';
 
 @Injectable({
   providedIn: 'root',
@@ -94,7 +98,7 @@ export class EndpointsService {
   }
 
   addService(service: Service) {
-    return this.http.post<Service, Service>(Constants.SERVICE_API(''), service,);
+    return this.http.post<Service, Service>(Constants.SERVICE_API(''), service);
   }
 
   deleteService(id: string) {
@@ -102,10 +106,29 @@ export class EndpointsService {
   }
 
   loadTimetable(dateFrom: string, dateTo: string) {
-    return this.http.get(Constants.TIMETABLE_API, {dateFrom, dateTo})
+    return this.http.get(Constants.TIMETABLE_API, { dateFrom, dateTo });
   }
 
   getPeopleWithTooManyDays() {
-    return this.http.get<string[]>(Constants.PERSON_SERVED_MANY)
+    return this.http.get<string[]>(Constants.PERSON_SERVED_MANY);
+  }
+
+  loadRehearsals() {
+    return this.http.get<Rehearsal[]>(Constants.REHEARSAL_API);
+  }
+
+  loadPlaces() {
+    return this.http.get<RehearsalPlace[]>(Constants.REHEARSAL_PLACE_API);
+  }
+
+  createRehearsal(data: Rehearsal) {
+    return this.http.post<Rehearsal, Rehearsal>(Constants.REHEARSAL_API, data);
+  }
+
+  updateRehearsal(id: string, data: Rehearsal) {
+    return this.http.post<Rehearsal, Rehearsal>(
+      Constants.REHEARSAL_BY_ID_API(id),
+      data,
+    );
   }
 }

@@ -1,0 +1,37 @@
+<ws-loading-indicator [loading]="loading$ | async"></ws-loading-indicator>
+<mat-card class="mx-2 my-3">
+  <mat-card-header>
+    <div class="flex align-content-center mb-5">
+      <mat-card-title>Репетиции</mat-card-title>
+      <a (click)="openRehearsalDialog()" aria-label="Add new service" class="ml-4" color="primary" mat-mini-fab>
+        <mat-icon>add</mat-icon>
+      </a>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table [dataSource]="datasource" class="mat-elevation-z8" mat-table>
+      <ng-container matColumnDef="date">
+        <th *matHeaderCellDef mat-header-cell> Дата</th>
+        <td *matCellDef="let rehearsal" mat-cell>{{rehearsal.date | date}}</td>
+      </ng-container>
+      <ng-container matColumnDef="place">
+        <th *matHeaderCellDef mat-header-cell> Место проведения</th>
+        <td *matCellDef="let rehearsal" mat-cell>{{rehearsal.place.name}} {{rehearsal.place.address}}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell> Действия</th>
+        <td *matCellDef="let rehearsal" mat-cell>
+          <button (click)="openRehearsalDialog(rehearsal)" aria-label="Edit rehearsal" class="ml-4" color="primary"
+                  mat-icon-button>
+            <mat-icon fontIcon="edit"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+
+  </mat-card-content>
+</mat-card>
+

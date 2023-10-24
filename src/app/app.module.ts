@@ -17,8 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { ServiceTemplateListComponent } from './components/service-templates/service-template-list/service-template-list.component';
 import { AddServiceTemplateModalComponent } from './components/service-templates/add-service-template-modal/add-service-template-modal.component';
@@ -43,11 +42,12 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { TimetableComponent } from './components/timetable/timetable.component';
 import { TimetableRowComponent } from './components/timetable-row/timetable-row.component';
-import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {SnackbarService} from "./services/snackbar.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SnackbarService } from './services/snackbar.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddServiceChooseTemplateModalComponent } from './components/service/add-service-choose-template/add-service-choose-template-modal.component';
+import { SharedModule } from './shared/shared.module';
+import { RehearsalModule } from './components/rehearsal/rehearsal.module';
 
 const routes: Routes = [
   {
@@ -79,6 +79,13 @@ const routes: Routes = [
     component: PeopleListComponent,
   },
   {
+    path: 'rehearsals',
+    loadChildren: () =>
+      import('./components/rehearsal/rehearsal.module').then(
+        (m) => m.RehearsalModule,
+      ),
+  },
+  {
     path: '',
     component: TimetableComponent,
   },
@@ -91,7 +98,6 @@ registerLocaleData(localeRu, 'ru');
     AppComponent,
     InstrumentsListComponent,
     InstrumentAddModalComponent,
-    ConfirmDialogComponent,
     ServiceTemplateListComponent,
     AddServiceTemplateModalComponent,
     ServiceListComponent,
@@ -104,7 +110,6 @@ registerLocaleData(localeRu, 'ru');
     ServiceInstrumentConfigComponent,
     TimetableComponent,
     TimetableRowComponent,
-    LoadingIndicatorComponent,
     AddServiceChooseTemplateModalComponent,
   ],
   imports: [
@@ -131,6 +136,8 @@ registerLocaleData(localeRu, 'ru');
     MatMomentDateModule,
     MatProgressSpinnerModule,
     FormsModule,
+    SharedModule,
+    RehearsalModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },
